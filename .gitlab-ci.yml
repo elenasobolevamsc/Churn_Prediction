@@ -13,7 +13,7 @@ deploy_staging:
     - gcloud config set project $project_id #вторая переменная в gitlab
     - gcloud builds submit  --config=cloudbuild.yaml --substitutions=_PROJECT_ID=$project_id,_ARTIFACT_REPO=$ARTIFACT_REPO,_ENV_IMG_NAME=$ENV_IMG_NAME,_ENV=$ENV,_SERVICE_NAME=$SERVICE_NAME . # строит имидж
   variables:
-    ENV_IMG_NAME: "api"
+    ENV_IMG_NAME: "api" #название имиджа
     ENV: "churn-prediction" #name in artifact registry
     ARTIFACT_REPO: "churn-prediction" #name in artifact registry
-    SERVICE_NAME: "api"
+    SERVICE_NAME: "api" #так называется в клаудране
