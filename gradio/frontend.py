@@ -13,7 +13,7 @@ def send_request(file):
     payload = {'data': data_json}
 
     # Example API endpoint (replace with your actual endpoint)
-    url = "http://api:8000/best_model"
+    url = "http://api:7000/best_model"
 
     # Send POST request to the API (you may need to adjust headers and data format)
     response = requests.post(url, json=payload)
