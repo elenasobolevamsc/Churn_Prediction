@@ -32,7 +32,7 @@ build:
       docker build
       "${CI_GRADIO_PATH}"  
       --tag "${CI_REGISTRY}/${CI_GRADIO_PATH}:${GRADIO_VERSION}"
-    - docker push "${CI_REGISTRY}/${CI_GRADIO_PATH}:${CI_GRADIO_PATH}" # pushes the built Docker image to the specified registry, making it available for deployment
+    - docker push "${CI_REGISTRY}/${CI_GRADIO_PATH}:${GRADIO_VERSION}" # pushes the built Docker image to the specified registry, making it available for deployment
 
 
 deploy:
