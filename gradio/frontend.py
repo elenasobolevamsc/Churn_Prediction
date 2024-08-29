@@ -3,6 +3,8 @@ import pandas as pd
 import requests
 from io import StringIO
 
+UI_API = 'api-churn-prediction'
+
 # Define a function that handles the API request
 def send_request(file):
     # Load the CSV file into a pandas DataFrame
@@ -13,7 +15,7 @@ def send_request(file):
     payload = {'data': data_json}
 
     # Example API endpoint (replace with your actual endpoint)
-    url = "http://api:7000/best_model"
+    url = f"http://{UI_API}:7000/best_model"
 
     # Send POST request to the API (you may need to adjust headers and data format)
     response = requests.post(url, json=payload)
