@@ -6,7 +6,8 @@ RUN pip install --upgrade pip
 
 RUN pip install -r requirements.txt
 
-COPY lib .
+
+COPY lib ./lib
 COPY api.py .
 COPY best_model.pkl .
 

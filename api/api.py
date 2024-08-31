@@ -7,6 +7,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from lib.custom_classes_for_pipeline import LogData
 
+
 sklearn.set_config(transform_output='pandas')
 
 app = FastAPI()
