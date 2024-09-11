@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/54463f141fe443ab909a2d493382ef69/artifacts
+end_time: 1725994197541
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 54463f141fe443ab909a2d493382ef69
+run_name: log_reg_pipeline
+run_uuid: 54463f141fe443ab909a2d493382ef69
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1725994195119
+status: 3
+tags: []
+user_id: Elena

@@ -1,0 +1,16 @@
+artifact_uri: mlflow-artifacts:/0/3886d12ca50a42a2867d1fa9cf4aa86e/artifacts
+deleted_time: 1725994075861
+end_time: 1725989783637
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: 3886d12ca50a42a2867d1fa9cf4aa86e
+run_name: rf_pipeline_class_weight
+run_uuid: 3886d12ca50a42a2867d1fa9cf4aa86e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1725989779577
+status: 3
+tags: []
+user_id: Elena
