@@ -1,6 +1,6 @@
 version: '3.8'
 services:
-  api:
+  api-churn-prediction:
     build: ./api
     ports:
       - "7000:7000"
