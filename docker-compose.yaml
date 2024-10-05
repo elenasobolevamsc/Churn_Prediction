@@ -3,10 +3,10 @@ services:
   api-churn-prediction:
     build: ./api
     ports:
-      - "7000:7000"
+      - "8000:8000"
   gradio:
     build:
       context: ./gradio
       dockerfile: Dockerfile
     ports:
-      - "7880:7880"
+      - "7860:7860"
