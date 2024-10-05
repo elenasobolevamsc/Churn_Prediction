@@ -13,4 +13,4 @@ COPY best_model.pkl .
 
 LABEL authors="admin"
 
-ENTRYPOINT ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]
+ENTRYPOINT ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "9000"]
