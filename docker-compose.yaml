@@ -4,9 +4,15 @@ services:
     build: ./api
     ports:
       - "7000:7000"
-  gradio:
+  streamlit:
     build:
-      context: ./gradio
+      context: ./streamlit
       dockerfile: Dockerfile
     ports:
-      - "7880:7880"
+      - "8501:8501"
+#  gradio:
+#    build:
+#      context: ./gradio
+#      dockerfile: Dockerfile
+#    ports:
+#      - "7880:7880"

@@ -1,61 +1,51 @@
 import streamlit as st
 import pandas as pd
 import requests
-from io import StringIO
-
+import os
+from io import BytesIO
 UI_API = 'api-churn-prediction'
 
-# Define a function that handles the API request
-def send_request(file):
-    # Load the CSV file into a pandas DataFrame
-    df = pd.read_csv(file)
+uploaded_file = st.file_uploader("Choose your csv or xlsx file", type=["csv", "xlsx"])
+st.sidebar.header("menu")
+if st.sidebar.button('predict'):
+    if uploaded_file is not None:
+        if uploaded_file.name.endswith('.csv'):
+            df = pd.read_csv(uploaded_file)
 
-    # Convert DataFrame to JSON (this depends on your API requirements)
-    data_json = df.to_json(orient='split')
-    payload = {'data': data_json}
+        if uploaded_file.name.endswith('.xlsx'):
+            df_new = pd.read_excel(uploaded_file)
+            if len(df_new.columns) == 1:
+                df = pd.DataFrame(data=df_new[df_new.columns[0]].str.split(',', expand=True))
+                df.columns = df_new.columns[0].split(',')
+                for col in df.columns:
+                    df[col] = pd.to_numeric(df[col], errors='ignore')
+            else:
+                df = df_new
 
-    # Example API endpoint (replace with your actual endpoint)
-    url = f"http://{UI_API}/best_model"
+        st.dataframe(df)
 
-    # Send POST request to the API (you may need to adjust headers and data format)
-    response = requests.post(url, json=payload)
+        data = df.to_json(orient='split')
+        payload = {'data': data}
+        result = requests.post(f'http://{UI_API}:7000/best_model', json=payload)
+        res = pd.read_json(result.json()['pred'], orient='split')
+        res.columns = ['Prediction']
+        pred_res = pd.concat([df, res], axis=1)
 
-    res = pd.read_json(response.json()['pred'], orient='split')
-    res.columns = ['Prediction']
-    pred_res = pd.concat([df, res], axis=1)
+        st.write(pred_res)
+        st.download_button(
+            label='Download CSV',
+            data=pred_res.to_csv(index=False),
+            file_name='Data.csv',
+            mime='text/csv')
 
-    return pred_res
+        output = BytesIO()
+        with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+            pred_res.to_excel(writer, index=False, sheet_name='Sheet1')
+        excel_data = output.getvalue()
+        st.download_button(
+            label='Download Excel',
+            data=excel_data,
+            file_name='Data.xlsx',
+            mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        )
 
-# Streamlit app
-st.title('Churn Prediction App')
-
-# File uploader for CSV files
-uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
-
-if uploaded_file is not None:
-    # Display uploaded file as a DataFrame
-    st.write("Uploaded Data:")
-    df = pd.read_csv(uploaded_file)
-    st.dataframe(df)
-
-    # Predict button
-    if st.button('Predict'):
-        with st.spinner('Sending request to API...'):
-            # Send the file to the API and get the predictions
-            result = send_request(uploaded_file)
-
-            # Display the processed DataFrame with predictions
-            st.write("Prediction Results:")
-            st.dataframe(result)
-
-            # Provide download link for processed file
-            output_file = "processed_file.csv"
-            result.to_csv(output_file, index=False)
-
-            # Create a download button for the CSV
-            st.download_button(
-                label="Download CSV with Predictions",
-                data=result.to_csv(index=False),
-                file_name="processed_file.csv",
-                mime="text/csv"
-            )
