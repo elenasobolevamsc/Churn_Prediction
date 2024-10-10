@@ -19,7 +19,7 @@ spec: # defines the desired state for the deployment
         - name: ui # the name of the container
           image: __VERSION_GRADIO__ # the Docker image used for this container
           ports:
-            - containerPort: 7880 # specifies that port 80 should be exposed on the container
+            - containerPort: 8501 # specifies that port 80 should be exposed on the container
           env:
             - name: UI_URL
               value: "http://ui-service.default.svc.cluster.local"
@@ -35,7 +35,7 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 7880
+      targetPort: 8501
   type: LoadBalancer
 
 
