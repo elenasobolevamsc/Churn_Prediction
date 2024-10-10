@@ -26,7 +26,7 @@ if st.sidebar.button('predict'):
 
         data = df.to_json(orient='split')
         payload = {'data': data}
-        result = requests.post(f'http://{UI_API}/best_model', json=payload)
+        result = requests.post(f'http://api-churn-prediction/best_model', json=payload)
         if result.status_code == 200:
             res = pd.read_json(result.json()['pred'], orient='split')
         else:
